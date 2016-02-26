@@ -106,6 +106,10 @@ function resize(fileIndex, sizeIndex) {
             } else if ((fileIndex + 1) < imageFiles.length) {
                 resize(fileIndex + 1, 0);
             } else {
+				for (var index = 0; index < imageFiles.length; index++) {
+					var element = imageFiles[index];
+					fs.unlinkSync(element);
+				}
                 console.log("Done.");
                 process.exit();
             }

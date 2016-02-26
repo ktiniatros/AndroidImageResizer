@@ -28,6 +28,9 @@ function askUserForCurrentSize() {
     // return;
     rl.question("Enter your project folder name: ",
         function (inputString) {
+                        if(!inputString){
+                                inputString = "FunkMartini";
+                        }
             projectPath = path.join(androidStudioPath, inputString);
             if (!fs.existsSync(projectPath)) {
                 console.log(projectPath + " does not exist!");
@@ -66,7 +69,7 @@ function makeDirectories() {
 function populateImageFiles() {
     console.log("Finding image files...");
     var currentDirectory = process.cwd();
-    var allFiles = fs.readdirSync(currentDirectory);
+    var allFiles = fs.readdirSync(path.join(currentDirectory, "assets"));
     for (var i = 0; i < allFiles.length; i++) {
         var extname = path.extname(allFiles[i]);
         var f = allFiles[i];

@@ -28,9 +28,6 @@ function askUserForCurrentSize() {
     // return;
     rl.question("Enter your project folder name: ",
         function (inputString) {
-                        if(!inputString){
-                                inputString = "FunkMartini";
-                        }
             projectPath = path.join(androidStudioPath, inputString);
             if (!fs.existsSync(projectPath)) {
                 console.log(projectPath + " does not exist!");
@@ -72,7 +69,7 @@ function populateImageFiles() {
     var allFiles = fs.readdirSync(path.join(currentDirectory, "assets"));
     for (var i = 0; i < allFiles.length; i++) {
         var extname = path.extname(allFiles[i]);
-        var f = allFiles[i];
+        var f = path.join("assets", allFiles[i]);
         console.log("extname", extname);
         if (extname == '.jpg' || extname == '.jpeg' || extname == '.png') {
             try {
@@ -120,7 +117,7 @@ function resize(fileIndex, sizeIndex) {
 }
 
 function getPath(fileIndex, sizeIndex) {
-    var finalPath = androidStudioPath + mipmapPath + sizeNames[sizeIndex] + "/" + imageFiles[fileIndex];
+    var finalPath = androidStudioPath + mipmapPath + sizeNames[sizeIndex] + imageFiles[fileIndex].replace("assets", "");
     console.log("file to: " + finalPath);
     return finalPath;
 }
